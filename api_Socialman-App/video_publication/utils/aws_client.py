@@ -1,7 +1,8 @@
 import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 from config.config import Config
-import pymysql
+import psycopg2
+import psycopg2.extras
 import logging
 from contextlib import contextmanager
 
@@ -56,16 +57,14 @@ class DatabaseClient:
             'user': Config.RDS_USERNAME,
             'password': Config.RDS_PASSWORD,
             'database': Config.RDS_DATABASE,
-            'port': Config.RDS_PORT,
-            'charset': 'utf8mb4',
-            'autocommit': True
+            'port': Config.RDS_PORT
         }
     
     @contextmanager
     def get_connection(self):
         connection = None
         try:
-            connection = pymysql.connect(**self.config)
+            connection = psycopg2.connect(**self.config)
             yield connection
         except Exception as e:
             logger.error(f"Database connection error: {str(e)}")
@@ -79,7 +78,7 @@ class DatabaseClient:
     def execute_query(self, query, params=None, fetch=True):
         with self.get_connection() as connection:
             try:
-                with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+                with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
                     cursor.execute(query, params)
                     
                     if fetch:
