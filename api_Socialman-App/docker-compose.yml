@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  reading_service:
+    build: ./reading_writing_data
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./reading_writing_data/.env
+    container_name: reading_container
+
+  video_service:
+    build: ./video_publication
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./video_publication/.env
+    container_name: video_container
