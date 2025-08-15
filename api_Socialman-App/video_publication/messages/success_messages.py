@@ -1,0 +1,20 @@
+SUCCESS_MESSAGES = {
+    'HEALTH_CHECK': 'Video Publishing Service is running successfully',
+    'VIDEO_PUBLISHED_SUCCESS': 'Video published successfully to selected platforms',
+    'PLATFORMS_RETRIEVED': 'Available platforms retrieved successfully',
+    'STATUS_RETRIEVED': 'Publication status retrieved successfully',
+    'INSTAGRAM_PUBLISHED': 'Video published successfully to Instagram',
+    'TIKTOK_PUBLISHED': 'Video published successfully to TikTok',
+    'X_PUBLISHED': 'Video published successfully to X (Twitter)',
+    'FACEBOOK_PUBLISHED': 'Video published successfully to Facebook',
+    'CREDENTIALS_VALIDATED': 'Platform credentials validated successfully',
+    'VIDEO_UPLOADED': 'Video uploaded successfully',
+    'MEDIA_CONTAINER_CREATED': 'Media container created successfully',
+    'VIDEO_PROCESSED': 'Video processed successfully',
+    'PUBLICATION_QUEUED': 'Video publication queued successfully',
+    'PARTIAL_SUCCESS': 'Video published to some platforms with errors on others',
+    'DATABASE_CONNECTED': 'Database connection established successfully',
+    'AWS_CLIENT_INITIALIZED': 'AWS client initialized successfully',
+    'CONFIG_LOADED': 'Configuration loaded successfully',
+    'SERVICE_STARTED': 'Video Publishing Service started successfully'
+}
