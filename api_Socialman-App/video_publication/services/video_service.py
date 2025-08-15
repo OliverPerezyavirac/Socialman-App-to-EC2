@@ -150,12 +150,12 @@ class VideoService:
         try:
             query = """
             INSERT INTO video_publications (video_id, platform, status, publication_data, created_at)
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, NOW())
             """
             
             self.db_client.execute_query(
                 query, 
-                (video_id, platform, status, json.dumps(publication_data), datetime.now()),
+                (video_id, platform, status, json.dumps(publication_data)),
                 fetch=False
             )
             
@@ -182,3 +182,4 @@ class VideoService:
         except Exception as e:
             logger.error(f"Error listing videos: {str(e)}")
             raise
+        
