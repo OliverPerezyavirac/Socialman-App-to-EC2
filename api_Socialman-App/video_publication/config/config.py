@@ -13,7 +13,7 @@ class Config:
     RDS_DATABASE = os.environ.get('RDS_DATABASE')
     RDS_USERNAME = os.environ.get('RDS_USERNAME')
     RDS_PASSWORD = os.environ.get('RDS_PASSWORD')
-    RDS_PORT = int(os.environ.get('RDS_PORT', 3306))
+    RDS_PORT = int(os.environ.get('RDS_PORT', 5432))
     
     INSTAGRAM_ACCESS_TOKEN = os.environ.get('INSTAGRAM_ACCESS_TOKEN')
     INSTAGRAM_BUSINESS_ACCOUNT_ID = os.environ.get('INSTAGRAM_BUSINESS_ACCOUNT_ID')
@@ -42,3 +42,4 @@ class Config:
             raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
         
         return True
+    
