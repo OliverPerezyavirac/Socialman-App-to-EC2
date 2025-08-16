@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  reading_writing_data:
+    build: ./reading_writing_data
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./reading_writing_data/.env
+    volumes:
+      - ./reading_writing_data:/app
+    networks:
+      - social-network
+
+  video_publication:
+    build: ./video_publication
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./video_publication/.env
+    volumes:
+      - ./video_publication:/app
+    networks:
+      - social-network
+
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - ./nginx-proxy-data:/data
+      - ./nginx-proxy-letsencrypt:/etc/letsencrypt
+    networks:
+      - social-network
+
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Guayaquil
+      - SUBDOMAINS=tu-subdominio
+      - TOKEN=tu-token-de-duckdns
+      - LOG_FILE=false
+    volumes:
+      - ./duckdns-config:/config
+    restart: unless-stopped
+    networks:
+      - social-network
+
+networks:
+  social-network:
+    driver: bridge
