@@ -23,32 +23,15 @@ services:
     networks:
       - social-network
 
-  nginx-proxy-manager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
+  nginx:
+    image: nginx:alpine
     ports:
-      - '80:80'
-      - '443:443'
-      - '81:81'
+      - "8080:80"
     volumes:
-      - ./nginx-proxy-data:/data
-      - ./nginx-proxy-letsencrypt:/etc/letsencrypt
-    networks:
-      - social-network
-
-  duckdns:
-    image: lscr.io/linuxserver/duckdns:latest
-    container_name: duckdns
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Guayaquil
-      - SUBDOMAINS=tu-subdominio
-      - TOKEN=tu-token-de-duckdns
-      - LOG_FILE=false
-    volumes:
-      - ./duckdns-config:/config
-    restart: unless-stopped
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - reading_writing_data
+      - video_publication
     networks:
       - social-network
 
